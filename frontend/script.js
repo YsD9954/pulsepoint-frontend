@@ -12,9 +12,10 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
   try {
     const response = await fetch('https://pulsepoint-backend.onrender.com/predict', {
       method: 'POST',
-      body: formData,
-      mode: 'cors'
+      mode: 'cors',
+      body: formData
     });
+
 
     if (!response.ok) {
       throw new Error(`Server error: ${response.status}`);

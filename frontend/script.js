@@ -10,12 +10,13 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
   document.getElementById('resultContainer').style.display = 'none';
 
   try {
-    const response = await fetch('/api/predict', {
+    const response = await fetch('https://pulsepoint-backend.onrender.com/predict', {
       method: 'POST',
-      body: formData
+      body: formData,
+      headers: {
+        // No Content-Type header for FormData
+      },
     });
-
-
 
     if (!response.ok) {
       throw new Error(`Server error: ${response.status}`);
@@ -58,16 +59,8 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
       data: {
         labels: labels,
         datasets: [
-          {
-            label: 'Commits',
-            data: commits,
-            backgroundColor: '#3498db'
-          },
-          {
-            label: 'Messages',
-            data: messages,
-            backgroundColor: '#2ecc71'
-          }
+          { label: 'Commits', data: commits, backgroundColor: '#3498db' },
+          { label: 'Messages', data: messages, backgroundColor: '#2ecc71' }
         ]
       },
       options: {

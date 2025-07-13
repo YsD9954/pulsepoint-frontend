@@ -10,11 +10,11 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
   document.getElementById('resultContainer').style.display = 'none';
 
   try {
-    const response = await fetch('https://pulsepoint-backend.onrender.com/predict', {
+    const response = await fetch('/api/predict', {
       method: 'POST',
-      mode: 'cors',
       body: formData
     });
+
 
 
     if (!response.ok) {

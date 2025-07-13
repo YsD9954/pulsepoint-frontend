@@ -8,7 +8,6 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}}, methods=["GET", "POST", "OPTIONS"])
 
-
 app.config['PROPAGATE_EXCEPTIONS'] = True  # Show internal errors if any
 
 # Load model once
@@ -26,6 +25,10 @@ def predict():
 
         file = request.files['csv_file']
         filename = secure_filename(file.filename)
+
+        # ✅ Create the "data" directory if it doesn't exist
+        os.makedirs('data', exist_ok=True)
+
         filepath = os.path.join('data', filename)
         file.save(filepath)
 

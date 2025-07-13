@@ -12,7 +12,8 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
   try {
     const response = await fetch('https://pulsepoint-backend.onrender.com/predict', {
       method: 'POST',
-      body: formData
+      body: formData,
+      mode: 'cors'
     });
 
     if (!response.ok) {

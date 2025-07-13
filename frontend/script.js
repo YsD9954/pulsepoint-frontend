@@ -6,12 +6,11 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
   const formData = new FormData();
   formData.append('csv_file', file);
 
-  // Show loader, hide result
   document.getElementById('loader').style.display = 'block';
   document.getElementById('resultContainer').style.display = 'none';
 
   try {
-      const response = await fetch('https://pulsepoint-backend.onrender.com/predict', {
+    const response = await fetch('https://pulsepoint-backend.onrender.com/predict', {
       method: 'POST',
       body: formData
     });
@@ -21,13 +20,10 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
     }
 
     const data = await response.json();
-
-    // Validate data
     if (!Array.isArray(data) || data.length === 0) {
       throw new Error("No prediction data received.");
     }
 
-    // Update table
     const tableBody = document.querySelector('#resultsTable tbody');
     tableBody.innerHTML = '';
 
@@ -46,12 +42,10 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
       tableBody.appendChild(tr);
     });
 
-    // Setup chart
     const labels = data.map((row, i) => row.date || `Row ${i + 1}`);
     const commits = data.map(row => Number(row.commits));
     const messages = data.map(row => Number(row.messages));
 
-    // Destroy previous chart if it exists
     if (window.activityChart instanceof Chart) {
       window.activityChart.destroy();
     }
@@ -78,15 +72,11 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
         responsive: true,
         plugins: {
           legend: { position: 'top' },
-          title: {
-            display: true,
-            text: '📊 Team Activity Chart'
-          }
+          title: { display: true, text: '📊 Team Activity Chart' }
         }
       }
     });
 
-    // Show result section
     document.getElementById('resultContainer').style.display = 'block';
 
   } catch (error) {
@@ -95,10 +85,8 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
   } finally {
     document.getElementById('loader').style.display = 'none';
   }
+});
 
-
-
-  // Handle CSV download
 document.getElementById('downloadBtn').addEventListener('click', () => {
   const rows = [["Date", "Commits", "Messages", "Tickets Closed", "Status"]];
   const tableRows = document.querySelectorAll('#resultsTable tbody tr');
@@ -108,8 +96,7 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
     rows.push(cells);
   });
 
-  let csvContent = "data:text/csv;charset=utf-8," 
-    + rows.map(e => e.join(",")).join("\n");
+  let csvContent = "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
 
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement("a");
@@ -118,6 +105,4 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-});
-
 });

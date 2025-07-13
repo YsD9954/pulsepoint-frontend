@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>PulsePoint Pro – Team Risk Analyzer</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -37,12 +37,11 @@
         </thead>
         <tbody></tbody>
       </table>
-      
-      <button id="downloadBtn" style="margin-top: 20px;">⬇️ Download Results as CSV</button>
 
+      <button id="downloadBtn" style="margin-top: 20px;">⬇️ Download Results as CSV</button>
     </div>
   </div>
 
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="/script.js"></script>
 </body>
 </html>

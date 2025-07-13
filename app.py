@@ -1,14 +1,12 @@
 from flask import Flask, request, jsonify
 import pandas as pd
 import joblib
-import os
-from werkzeug.utils import secure_filename
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}}, methods=["GET", "POST", "OPTIONS"])
 
-app.config['PROPAGATE_EXCEPTIONS'] = True  # Show internal errors if any
+app.config['PROPAGATE_EXCEPTIONS'] = True
 
 # Load model once
 model = joblib.load('ml/team_risk_model.pkl')
@@ -24,15 +22,9 @@ def predict():
             return jsonify({'error': 'No file uploaded'}), 400
 
         file = request.files['csv_file']
-        filename = secure_filename(file.filename)
 
-        # ✅ Create the "data" directory if it doesn't exist
-        os.makedirs('data', exist_ok=True)
-
-        filepath = os.path.join('data', filename)
-        file.save(filepath)
-
-        df = pd.read_csv(filepath)
+        # ✅ Read file directly without saving
+        df = pd.read_csv(file)
 
         required_cols = ['commits', 'messages', 'tickets_closed']
         for col in required_cols:

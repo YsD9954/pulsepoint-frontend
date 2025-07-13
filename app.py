@@ -6,7 +6,8 @@ from werkzeug.utils import secure_filename
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, origins="*")
+CORS(app, resources={r"/predict": {"origins": "*"}})
+
 
 app.config['PROPAGATE_EXCEPTIONS'] = True  # Show internal errors if any
 

@@ -2,46 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>PulsePoint Pro – Team Risk Analyzer</title>
+  <title>PulsePoint Pro</title>
   <link rel="stylesheet" href="/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>🚨 PulsePoint Pro</h1>
-    <p>Upload your team performance CSV to analyze risk levels based on productivity indicators.</p>
-
     <form id="uploadForm">
       <input type="file" id="csvFile" name="csv_file" accept=".csv" required />
       <button type="submit">🔍 Analyze Team</button>
     </form>
-
     <div id="loader" style="display:none;">
-      <p>⏳ Analyzing... please wait</p>
+      <p>⏳ Analyzing...</p>
       <div class="spinner"></div>
     </div>
-
-    <div id="resultContainer" style="display: none;">
+    <div id="resultContainer" style="display:none;">
       <canvas id="activityChart" height="150"></canvas>
-
-      <h2>📊 Prediction Results</h2>
-      <table id="resultsTable">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Commits</th>
-            <th>Messages</th>
-            <th>Tickets Closed</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-
-      <button id="downloadBtn" style="margin-top: 20px;">⬇️ Download Results as CSV</button>
+      <table id="resultsTable"><thead><tr>
+        <th>Date</th><th>Commits</th><th>Messages</th><th>Tickets Closed</th><th>Status</th>
+      </tr></thead><tbody></tbody></table>
+      <button id="downloadBtn">⬇️ Download CSV</button>
     </div>
   </div>
-
   <script src="/script.js"></script>
 </body>
 </html>

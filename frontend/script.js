@@ -13,6 +13,7 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
     const response = await fetch('https://pulsepoint-backend.onrender.com/predict', {
       method: 'POST',
       body: formData,
+      timeout: 0,
       headers: {
         // No Content-Type header for FormData
       },
